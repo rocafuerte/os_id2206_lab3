@@ -1,0 +1,1588 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+     "http://www.w3.org/TR/html4/strict.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="sv">
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  <head>
+    <title>
+
+
+
+
+KTH | Skolan för informations- och kommunikationsteknik
+</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+   	<link rel="shortcut icon" href="/img/icon/favicon.ico">
+  	<link rel="SCHEMA.dc" href="http://purl.org/metadata/dublin_core_elements">
+  	<meta name="DC.title" content="Skolan för informations- och kommunikationsteknik">
+  	<meta name="DC.Format" content="text/html">
+  	<meta name="DC.Publisher" content="Kungliga Tekniska högskolan">
+  	<meta name="geo.position" content="59.346819; 18.073850">
+  	<meta name="geo.placename" content="Stockholm">
+  	<meta name="geo.region" content="SE-AB">	
+  	
+  	  <meta name="robots" content="noodp">
+  	  <meta name="DC.Description" content="Skolan för informations- och kommunikationsteknik">
+  	  <meta name="description" content="Skolan för informations- och kommunikationsteknik">
+  	
+    
+      <meta name="DC.Subject" content="Skolan för informations- och kommunikationsteknik">
+      <meta name="keywords" content="Skolan för informations- och kommunikationsteknik">
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+  <style type="text/css" media="screen">
+				@import "/css/initial.css";
+				@import "/css/screen.css";
+		    	@import "/css/kthstandard-app.css";
+				@import "/css/themes-teasers.css";
+		    	
+          #header h1 #homeLink { background-image: url(/polopoly_fs/2.841!siteSettings/header/mainLogo/image/logo-main.png)}
+		    	#header h1 #headerText { background-image: url(/polopoly_fs/2.841!settings/secondaryLogo/image/ict-sv.jpg)}
+			</style>
+            
+            <!--[if IE 6]><link rel="stylesheet" href="/css/ie6.css" type="text/css"><![endif]-->
+            <!--[if IE 7]><link rel="stylesheet" href="/css/ie7.css" type="text/css"><![endif]-->
+			
+            <style type="text/css" media="print">
+			    @import "/css/initial.css";
+				@import "/css/themes-teasers.css";
+			    @import "/css/print.css";
+			</style>
+			<style type="text/css" media="handheld">
+			    @import "/css/initial.css";
+			    @import "/css/kthstandard-app.css";
+				@import "/css/themes-teasers.css";
+			    @import "/css/handheld.css";
+          #header h1 #homeLink { background-image: url(/polopoly_fs/2.841!siteSettings/header/mainLogo/image/logo-main.png)}
+			    #header h1 #headerText { background-image: url(/polopoly_fs/2.841!settings/secondaryLogo/image/ict-sv.jpg)}
+			</style>
+
+
+
+
+    
+    <script type="text/javascript">
+ 	   var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript" src="/script/kthweb.js">
+    
+    </script>
+    <script type="text/javascript" src="/script/lib/swfobject.js"></script>
+    <script type="text/javascript" src="/script/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="/script/lib/jquery.autocomplete.min.js"></script>
+    <script type="text/javascript" src="/script/lib/tokenizer-min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.autocomplete.css">
+    
+      
+        <script type="text/javascript" src="/polopoly_fs/2.841!google-analytics-ict.js"></script>
+      
+    
+  	
+  		
+  			
+
+
+
+
+
+
+
+	<link rel="alternate"
+		href="/ict/nyheter?rss=news"
+		type="application/rss+xml" 
+		hreflang="sv-SE" 
+		title="KTH ICT nyheter">
+
+  		
+  			
+
+
+
+
+
+
+
+	<link rel="alternate"
+		href="/ict?l=en_UK"
+		type="text/html" 
+		hreflang="en-UK" 
+		title="This page in English">
+
+  		
+  			
+
+
+
+
+
+
+
+	<link rel="alternate"
+		href="/ict?rss=navigation"
+		type="application/rss+xml" 
+		hreflang="sv-SE" 
+		title="Meny - Skolan för informations- och kommunikationsteknik">
+
+  		
+  	
+    
+    <link href="http://www.kth.se/ict" rel="canonical">
+    
+    	
+  </head>
+
+  
+
+
+
+
+
+
+
+
+<body class="entrance article"><div id="wrapper"><div id="wrapper2">
+  <div id="header">
+  		
+
+
+
+
+
+
+
+
+		<ul id="topLinks">
+			
+			<li class="skip"><a href="#navigation">Till navigationen</a></li>
+			<li class="skip"><a href="#bodyWrapper">Till innehållet</a></li>
+      
+			
+				
+				
+					<li class="firstNonSkip"><a href="/" title="KTHs startsida">KTHs startsida</a></li>
+				
+		 	
+			<li><a href="http://www.kth.se/gemensamt/1.2029" title="Anpassa utseende">Anpassa</a></li>
+			<li><a href="/ict/om" title="Om webbplatsen">Om webbplatsen</a></li>
+	   		<li 
+
+
+
+
+
+
+  
+  class="en-UK"
+
+
+
+
+
+ ><a href="/ict?l=en_UK" hreflang="en-UK" id="language" title="ICT International Website">ICT International Website</a></li>
+		</ul>
+		<h1 id="topKTH">
+			<a href="http://www.kth.se" id="homeLink" title="Startsida för www.kth.se" rel="home"><img src="/polopoly_fs/2.841!siteSettings/header/mainLogo/image/logo-main.png" alt="Startsida för www.kth.se" height="82" width="82" title="Startsida för www.kth.se"></a>
+			
+				
+					<a href="/ict" id="headerText" title="Skolan för informations- och kommunikationsteknik">Skolan för informations- och kommunikationsteknik</a>
+				
+				
+			
+		</h1>
+		
+			
+
+
+
+
+
+			
+			
+				
+				
+					
+				
+			
+			<!-- Java script is enabled: The search result is shown internally -->
+			<div id="toogleSearchMain" style="display: none;"> 
+				<form class="headerSearch searchbox_007739532553414964846:nnnfexlcq9w" action="http://www.kth.se/gemensamt/1.15656">
+		    		<p>
+						<label for="searchterm" accesskey="s" title="För att komma direkt till sökningen, tryck tangentkombinationen Alt-s">
+							Ange <kbd>s</kbd>ökord
+						</label>
+		    			<input type="hidden" name="cx" value="007739532553414964846:nnnfexlcq9w">
+						<input type="hidden" name="cof" value="FORID:11">
+						<input type="hidden" name="l" value="sv_SE">
+						<input type="text" name="q" size="26"  maxlength="2048" id="searchterm">
+						<input type="submit" name="sa" value="Sök" class="submit">
+					</p>
+				</form>
+			</div>
+			<!-- Java script is disabled: The search result is shown externaly -->
+			<div id="toogleSearchMain_">
+				<form class="headerSearch searchbox_007739532553414964846:nnnfexlcq9w" action="http://www.google.com/cse">
+		    		<p>
+						<label for="searchterm2" accesskey="s" title="För att komma direkt till sökningen, tryck tangentkombinationen Alt-s">
+							Ange <kbd>s</kbd>ökord
+						</label>
+		    			<input type="hidden" name="cx" value="007739532553414964846:nnnfexlcq9w">
+						<input type="hidden" name="l" value="sv_SE">
+						<input type="text" name="q" size="26"  maxlength="2048" id="searchterm2">
+						<input type="submit" name="sa" value="Sök" class="submit">
+					</p>
+				</form>
+			</div>
+			
+				
+			
+		
+		<script type="text/javascript">toogle('toogleSearchMain_');</script>
+		<script type="text/javascript">toogle('toogleSearchMain');</script>	
+		
+	</div>
+	<div id="breadcrumbs">
+		
+			
+
+
+
+
+<p>Brödsmulor - navigation uppåt i innehållsstrukturen</p>
+<ul>
+  
+    
+      <li><a href="/">KTH:s startsida</a></li>
+    
+      <li>ICT</li>
+    
+  
+</ul>
+<div class="clearer"></div>
+
+		
+	</div>
+	
+
+
+
+
+	
+	<div id="bodyWrapper">
+		<div id="bodyWrapper2">
+			
+    <div id="entranceUpper">
+      <div id="entranceImage">
+        
+
+
+
+
+
+
+
+  
+    
+    
+      
+
+
+
+
+
+
+
+
+
+
+
+	<div class="figure">
+		
+	    	
+	        	<div class="maxImageWidth" style="width: 469px">
+	        		
+	        			<a href="/ict/om" title="ICT"><img src="/polopoly_fs/2.841!mainRichMedia/resource/image/image/start_swe.jpg" alt="Skolan för informations- och kommunikationsteknik" height="159" width="490" title="Skolan för informations- och kommunikationsteknik"></a>
+	        			
+	        		
+		    	</div>
+	        
+	          
+		 
+	</div>
+
+    
+    
+  
+
+
+      </div>
+      <div id="entranceQuickie">
+        <h2>Snabblänkar</h2>
+        
+
+
+
+
+
+
+
+
+<div class="quickie">
+	
+	
+		
+			
+				
+                    
+				    
+                        
+
+
+
+
+
+
+
+
+
+	<form name="linkSelectForm_0" action="" method="post">
+		<p>
+			<select name="linkSelect">
+				<option value="#">Verksamhetsbaser</option>
+				
+					<option value="/ict/om/organisation/verksamhetsbas/materialfysik-1.37783">Materialfysik</option>
+				
+					<option value="/ict/om/organisation/verksamhetsbas/fotonik-och-optik-1.37784">Fotonik &amp; Optik</option>
+				
+					<option value="/ict/om/organisation/verksamhetsbas/integrerade-komponenter-och-kretsar-1.37700">Integrerade komponenter och kretsar</option>
+				
+					<option value="/ict/om/organisation/verksamhetsbas/elektroniksystem-1.38815">Elektroniksystem</option>
+				
+					<option value="/ict/om/organisation/verksamhetsbas/kommunikation-infrastruktur-och-tjanster-1.37792">Kommunikation: tjänster och infrastruktur</option>
+				
+			</select>
+			<input type="submit" class="submit" name="choose"
+				value="Välj">
+		</p>
+	</form>
+
+
+                    
+                
+            
+			
+	        
+           
+           
+	        
+		
+	
+	
+		
+			
+				
+                    
+				    
+                        
+
+
+
+
+
+
+
+
+
+	<form name="linkSelectForm_1" action="" method="post">
+		<p>
+			<select name="linkSelect">
+				<option value="#">Forskningsenheter</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/materialfysik">Materialfysik</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/2.17915">Funktionella material</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/halvledarmaterial">Halvledarmaterial</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/2.17908">Komponenter och kretsar</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/fotonik">Fotonik</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/optik">Optik</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/kvantelektronik">Kvantelektronik och -optik</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/elektroniksystem">Elektroniksystem</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/cos">Kommunikationssystem</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/datorsystem">Programvaru- och datorsystem</option>
+				
+					<option value="/ict/om/organisation/forskningsenheter/telekommunikation">Telekommunikationssystem</option>
+				
+			</select>
+			<input type="submit" class="submit" name="choose"
+				value="Välj">
+		</p>
+	</form>
+
+
+                    
+                
+            
+			
+	        
+           
+           
+	        
+		
+	
+	
+		
+			
+				
+                    
+				    
+                        
+
+
+
+
+
+
+
+
+
+	<form name="linkSelectForm_2" action="" method="post">
+		<p>
+			<select name="linkSelect">
+				<option value="#">Centra</option>
+				
+					<option value="http://www.kth.se/ict/2.5415/2.5417">Kista fotonikforskningscentrum</option>
+				
+					<option value="http://www.kth.se/ict/2.5415/2.5418">Electrumlaboratoriet</option>
+				
+					<option value="http://www.kth.se/ict/2.5433/">iPACK</option>
+				
+					<option value="http://www.wireless.kth.se/">Wireless@KTH</option>
+				
+					<option value="http://www.kth.se/ict/om/organisation/centra/adopt">ADOPT</option>
+				
+			</select>
+			<input type="submit" class="submit" name="choose"
+				value="Välj">
+		</p>
+	</form>
+
+
+                    
+                
+            
+			
+	        
+           
+           
+	        
+		
+	
+	
+		
+			
+			
+    	    	<div style="padding: 0pt 0pt 6px 15px; background: transparent url(http://www.kth.se/dokument/bilder/grafik/rss.png) no-repeat scroll 15px 0px; float: left;"><a href="http://www.kth.se/ict/nyheter?rss=news" style="margin-left: 18px;">RSS nyheter</a></div>
+	        
+	        
+           
+           
+	        
+		
+	
+</div>
+</div>
+        <div class="clearer"></div>
+      </div>
+
+      <div id="entranceLower">
+        <div id="content" class="news">
+          <div id="article" style="border: 0px;">
+            
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Teaser type: orgunit -->
+  
+  
+    
+     
+       
+     
+     
+    
+      
+    
+      
+        
+          <div class="teaser primary">
+            <h1>
+              Den internationella spinntronikeliten samlas
+            </h1>
+            
+            
+	            <div class="figure">
+                
+                  
+                  
+                    <div class="leftFloating">
+                    
+                 
+                 <img src="/polopoly_fs/1.59807!image/image/spint_w.gif" alt="spintronik" height="197" width="200" title="spintronik">
+                </div>
+              </div>
+            
+            
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+        
+			<p>KTH ICT arrangerar för andra gången en internationell workshop om Spinntronik och Nanomagnetism – NordicSpin’10.</p>
+			
+		
+	
+
+	
+		
+		
+		
+		
+        
+			<p>Internationella experter från Sverige, övriga EU, USA och Japan samlas på Gimo Herrgård den 7-9 maj för att diskutera det senaste inom Spinntronik.</p>
+			
+		
+	
+
+	
+		
+		
+		
+		
+        
+			<p>Spinntronik är ett av KTH ICTs starka områden och finansieras av bl a SSF och Vetenskapsrådet.</p>
+			
+		
+	
+
+	
+		
+		
+		
+		
+        
+			<p>Workshopen arrangeras av Stefano Bonetti och Johan Åkerman vid gruppen för Tillämpad Spinntronik i samarbete med Göteborgs universitet och Uppsala universitet.</p>
+			
+		
+	
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="http://www.nordicspin10.com/" title="Läs mer på hemsidan för NordiSpin&#39;10" onclick="window.open(this.href, '', 'status=yes,toolbar=yes,location=yes,menubar=yes,directories=yes,scrollbars=yes,resizable=yes'); return false;">Läs mer på hemsidan för NordiSpin&#39;10</a></li>
+		
+			<li><a href="http://www.dn.se/nyheter/vetenskap/framtidens-datorminnen-har-gatt-i-spinn-1.1087415" title="Läs mer om spinntronik i en intervju med Johan Åkerman i DN" onclick="window.open(this.href, '', 'status=yes,toolbar=yes,location=yes,menubar=yes,directories=yes,scrollbars=yes,resizable=yes'); return false;">Läs mer om spinntronik i en intervju med Johan Åkerman i DN</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+
+
+          </div>
+        
+        
+      
+    
+      
+        
+        
+          <div class="teaser smallNews">
+            <h2>
+              Högupplösningsmikroskopi samlar forskarelit i Kista
+            </h2>
+            
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+        
+			<p>Den 8-11 juni samlas den internationella eliten inom elektronmikroskopi (EM), atomic force mikroskopi (AFM), och focused Ion beam mikroskopi (FIB) i Kista för en tredagskonferens. Det handlar om den årliga SCANDEM-konferensen som är öppen för alla intresserade av högupplösningstekniker. De ledande företag som tillverkar elektronmikroskop och kringutrustning kommer att ställa ut sina allra modernaste instrument och produkter.</p>
+			
+		
+	
+
+	
+		
+		
+		
+		
+        
+			<p>- Vi har några av de främsta EM-forskarna i världen på vår talarlista, berättar professor Oleg Shupliakov KI och professor Hans Hebert, KI/KTH som ingår i arrangörskommittén. Här finns de stora namnen från Sverige och internationellt. Det är unikt att vi samlar forskare både inom materialvetenskap och inom biomedicin.</p>
+			
+		
+	
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="/ict/nyheter/hogupplosningsmikroskopi-samlar-forskarelit-i-kista-1.59623" title="Läs mer om SCANDEM 2010">Läs mer om SCANDEM 2010</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+
+
+          </div>
+        
+      
+    
+      
+        
+        
+          <div class="teaser smallNews">
+            <h2>
+              KTH ICT-student vinner SAIS Master&#039;s Thesis Award 2010
+            </h2>
+            
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+        
+			<p>Roberto Castañeda Lozano har fått Swedish Artificial Intelligence Societys pris för bästa masteruppsats 2010. Både hans handledare och juryn lyfter fram det unika i hans arbete. I sitt exjobb använder han sig av ”constraint programming” för att kunna skapa pålitliga finansiella system.</p>
+			
+		
+	
+
+	
+		
+		
+		
+		
+        
+			<p>- Stora finansiella system – som till exempel börsen – MÅSTE fungera, de får helt enkelt inte sluta att fungera. Om det händer så kostar det stora pengar och inte minst förlorat förtroende. Den här metoden kommer att bidra till att göra systemen mer pålitliga.</p>
+			
+		
+	
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="/ict/nyheter/kth-ict-student-vinner-sais-master-s-thesis-award-2010-1.59210" title="Läs mer i intervju med Roberto">Läs mer i intervju med Roberto</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+
+
+          </div>
+        
+      
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+
+            
+              <table class="newsListing">
+                <thead>
+                  <tr>
+                    <th colspan="2">
+                      
+                        
+                        
+                          Nyheter
+                        
+                        
+                      
+                    </th>
+                  </tr>
+                </thead>
+                
+                  
+                    
+                    
+                      <tr class="odd">
+                    
+                  
+                    <td class="date">2010-05-06</td>
+                    <td><a href="/ict/nyheter/den-internationella-spinntronikeliten-samlas-7-9-maj-1.59785">Den internationella spinntronikeliten samlas 7-9 maj</a></td>
+                  </tr>
+                
+                  
+                    
+                      <tr class="even">
+                    
+                    
+                  
+                    <td class="date">2010-05-04</td>
+                    <td><a href="/ict/nyheter/hogupplosningsmikroskopi-samlar-forskarelit-i-kista-1.59623">Högupplösningsmikroskopi samlar forskarelit i Kista</a></td>
+                  </tr>
+                
+                  
+                    
+                    
+                      <tr class="odd">
+                    
+                  
+                    <td class="date">2010-05-04</td>
+                    <td><a href="/ict/nyheter/pressklippt-framtidens-datorminnen-har-gatt-i-spinn-1.59544">Pressklippt: Framtidens datorminnen har gått i spinn</a></td>
+                  </tr>
+                
+              </table>
+            
+            
+            
+              <table class="calendarListing">
+                <thead>
+                  <tr>
+                    <th colspan="2">Kalender</th>
+                  </tr>
+                </thead>
+                
+                  
+                    
+                    
+                      <tr class="odd">
+                    
+                  
+                    <td class="date">
+                      
+  				        2010-05-07
+  			          
+		            </td>
+                    <td><a href="/ict/kalender/2.4905/spinntronikeliten-samlas-7-9-maj-1.59783">Spinntronikeliten samlas 7-9 maj </a> (Övrigt)</td>
+                  </tr>
+                
+                  
+                    
+                      <tr class="even">
+                    
+                    
+                  
+                    <td class="date">
+                      
+  				        2010-05-12
+  			          
+		            </td>
+                    <td><a href="/ict/kalender/seminar/prof-thomas-ebbesen-strasbourg-university-and-cnrs-1.56378">Prof. Thomas Ebbesen, Strasbourg University and CNRS</a> (Seminarier)</td>
+                  </tr>
+                
+                  
+                    
+                    
+                      <tr class="odd">
+                    
+                  
+                    <td class="date">
+                      
+  				        2010-05-24
+  			          
+		            </td>
+                    <td><a href="/ict/kalender/2.4905/5th-international-sigetechnology-and-device-meeting-istdm-1.55388">5th international SiGeTechnology and Device Meeting (ISTDM) </a> (Övrigt)</td>
+                  </tr>
+                
+              </table>
+            
+            <div class="clearer"></div>
+          </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+
+<div id="sidebar">
+  
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+    
+      
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Teaser type: standard -->
+  
+    <div class="teaser">
+      <div class="teaserBody">
+        
+        
+          <img src="/polopoly_fs/1.54526!image/image/elena_web.jpg" alt="Elena Dubrova" height="61" width="58" class="teaserImage" title="Elena Dubrova">
+        
+        <h2>
+          Forskare i närbild
+        </h2>
+        
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+        
+			<p>Lär av naturen</p>
+			
+		
+	
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="/ict/forskning/elektroniksystem/2.14733/learning-from-nature-1.22642" title="Professor Elena Dubrova">Läs intervjun med Professor Elena Dubrova</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+
+
+      </div>
+    </div>
+  
+    <div class="teaser">
+      <div class="teaserBody">
+        
+        
+          <img src="/polopoly_fs/1.8668!image/image/puff1.jpg" alt="Studentwebben" height="53" width="59" class="teaserImage" title="Studentwebben">
+        
+        <h2>
+          För studenter
+        </h2>
+        
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="/ict/kontakt/kontakt-for-studenter-1.33051" title="Kontakt för studenter">Kontakt för studenter</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="/student" title="Studentwebben">Studentwebben</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+
+
+      </div>
+    </div>
+  
+    <div class="teaser">
+      <div class="teaserBody">
+        
+        
+          <img src="/polopoly_fs/1.9477!image/image/638.jpg" alt="utbildning" height="54" width="59" class="teaserImage" title="utbildning">
+        
+        <h2>
+          Utbildning
+        </h2>
+        
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="/ict/utbildning" title="Läs mer om våra utbildningar.">Läs mer om våra utbildningar</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+
+
+      </div>
+    </div>
+  
+    <div class="teaser">
+      <div class="teaserBody">
+        
+        
+          <img src="/polopoly_fs/1.9735!image/image/2012.jpg" alt="Forskning" height="54" width="59" class="teaserImage" title="Forskning">
+        
+        <h2>
+          Forskning
+        </h2>
+        
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="/ict/forskning" title="Fem strategiska forskningsområden.">Fem strategiska forskningsområden.</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+
+
+      </div>
+    </div>
+  
+    <div class="teaser">
+      <div class="teaserBody">
+        
+        
+          <img src="/polopoly_fs/1.8671!image/image/2638.jpg" alt="Intervjuer" height="54" width="59" class="teaserImage" title="Intervjuer">
+        
+        <h2>
+          Intervjuer
+        </h2>
+        
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="/ict/om/2.1696" title="Läs intervjuer med forskare, studenter och alumner">Forskare, studenter och alumner berättar</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+
+
+      </div>
+    </div>
+  
+    <div class="teaser">
+      <div class="teaserBody">
+        
+        
+          <img src="/polopoly_fs/1.8983!image/image/sok.jpg" alt="Sök anställd" height="54" width="59" class="teaserImage" title="Sök anställd">
+        
+        <h2>
+          Vi som jobbar här
+        </h2>
+        
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="http://catalog.sys.kth.se/catalog/app/?_flowId=group-flow&amp;kthId=u2app5fk&amp;l=en_UK" title="Sök i KTHs personaldatabas">Sök i KTHs personaldatabas</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+
+
+      </div>
+    </div>
+  
+    <div class="teaser">
+      <div class="teaserBody">
+        
+        
+          <img src="/polopoly_fs/1.8999!image/image/1807.jpg" alt="Pressrum" height="54" width="59" class="teaserImage" title="Pressrum">
+        
+        <h2>
+          Pressrum
+        </h2>
+        
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+        
+			<p>Pressreleaser, pressbilder och pressklipp.</p>
+			
+		
+	
+
+	
+		
+			
+
+
+
+
+
+
+
+	<ul class="linkSet">
+		
+			<li><a href="/ict/press" title="Pressrum">Pressrum</a></li>
+		
+	</ul>
+
+
+		
+		
+		
+		
+        
+	
+
+
+
+      </div>
+    </div>
+  
+
+
+
+
+
+
+	
+	
+	
+
+      
+      <div class="clearer"></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+
+  
+
+
+
+
+
+
+
+
+
+ 
+  
+  
+  
+  
+  
+    
+    
+    
+      <div class="article">
+        
+
+
+
+
+
+
+
+
+
+      </div>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+</div>
+
+    </div>
+  
+		</div>
+		
+		<div id="navigation">
+			
+
+
+
+
+
+<p class="accessibility">Huvudmeny - navigation nedåt och parallellt i innehållsstrukturen</p>
+
+<h2>ICT</h2><ul><li class='node'><a href='/ict/om'>Om oss</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/utbildning'>Utbildning</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/forskning'>Forskning</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/campusitu'>Campus Kista</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/skola'>Skolkontakter</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/foretag'>För företag</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/forskarstuderande'>För forskarstuderande</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/press'>Pressrum KTH ICT</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/nyheter'>Nyheter</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/kalender'>Kalender</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/pressklipp'>Pressklipp</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/anstallda'>ICT Internwebb</a> <img src='/img/arrow-node.png' alt='&gt;'></li><li class='node'><a href='/ict/kontakt'>Kontakt</a> <img src='/img/arrow-node.png' alt='&gt;'></li></ul>
+
+
+		</div>
+		
+		<div class="clearer"></div>
+	</div>
+	
+	<div id="footer">
+		
+
+
+
+
+
+<div class="footerContent">
+  <dl class="footerInfo">
+  	
+  		<dt>Organisation</dt>
+  		<dd title="Organisation">KTH Skolan för informations- och kommunikationsteknik |</dd>
+  	
+  	
+  		<dt>Adress</dt>
+  		<dd title="Adress">Forum 105, 164 40 Kista |</dd>
+  	
+  	
+  	
+  	
+  		<dt>Kontaktuppgifter</dt>
+  		<dd><a href="/ict/kontakt" title="Kontakta ICT">Kontakt</a></dd>
+  	
+  </dl>
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="microformats">
+  <div class="vcard">
+    
+      <a href="/ict/kontakt" class="url" title="Kontakta ICT">Kontakt</a>
+    
+    
+      <div class="org">
+        KTH Skolan för informations- och kommunikationsteknik
+      </div>
+    
+    
+      <div class="fn">
+        KTH Skolan för informations- och kommunikationsteknik
+      </div>
+    
+    <img class="logo" src="http://www.kth.se/img/logo-small.png" alt="KTH">
+    <div class="adr">
+      <span class="work"></span>
+      
+        <div class="street-address">
+          Valhallav 79
+        </div>
+      
+      
+        <div class="locality">
+          Stockholm
+        </div>
+      
+      
+        <div class="postal-code">
+          100 44
+        </div>
+      
+      
+        <div class="country-name">
+          Sweden
+        </div>
+      
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+<div class="microformats">
+  <div class="geo">
+    <span class="latitude">59.346819</span>
+    <span class="longitude">18.073850</span>
+  </div>
+</div>  
+  
+  </div>
+</div>
+
+</div>
+
+	</div>
+
+</div></div>
+<div style="display: inline; margin: 0; padding: 0; border: 0; height: 0; width: 0;"><img src="/l.gif?type=URL_REQUEST&amp;referrer=&amp;d=%2F2.10%2F2.841" alt="" height="1" width="1" title=""></div>
+</body>
+
+</html>
+
