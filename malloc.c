@@ -191,20 +191,31 @@ void *malloc(size_t nbytes){
                  ++list_place, f_list_size *=2) {
             }
         }
-        
+        printf("listplace: %d, innehåll: %d\n", list_place, quicklist[list_place]);
+
         if(quicklist[list_place]==NULL){
             /* Gör ny lista */
-            if((p = quickfit_morecore(SMALLESTQUICKLIST*(2^list_place))) == NULL){ 
-                /* Om all disk är slut */
-                return NULL;
-            }
-        }
-
-    }else{
-        
-        
+            if (list_place < NRQUICKLISTS-1) { /* ej sista listan, som implementeras med vanlig first-fit */
+                if((quicklist[list_place] = quickfit_morecore(SMALLESTQUICKLIST*(2^list_place))) == NULL){ 
+                    /* Om all disk är slut */
+                    return NULL;
+                }
+            } else { /* sista listan, allokera endast exakt det som krävs */
+                quicklist[list_place] = sbrk(sizeof(Header)+nbytes);
+                if(quicklist[list_place] == (char *) -1 ){/* Gör koden portabel */
+                    quicklist[list_place]=NULL;
+                    return NULL; /* Om det inte fanns disk */
+                }   
+                return quicklist[list_place];
+            }            
+        }else{ /* Fanns plats */
+            Header * ptr = quicklist[list_place];
+            quicklist[list_place] = (quicklist[list_place]->s.ptr)->s.ptr;
+            return ptr;
+        }      
     }
 }
+
 
 void free(void *ap){
     if(ap == NULL) return;
