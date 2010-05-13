@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include "tst.h"
 
+typedef char * caddr_t;
+
 #define SIZE 128
 #define BIGSIZE 100
 #define TIMES 100

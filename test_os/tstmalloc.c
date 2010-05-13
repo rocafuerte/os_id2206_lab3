@@ -49,9 +49,10 @@ int main(int argc, char *argv[]){
 
   MESSAGE("Test alignment for double\n");
   if ((d = malloc(2 * sizeof(double))) == NULL)
-    MESSAGE("* ERROR: malloc(2 * sizeof(double)) returned NULL\n");
+      MESSAGE("* ERROR: malloc(2 * sizeof(double)) returned NULL\n");
   d[0] = d[1] = (double)4711.4711;
   free(d);
+  
   return 0;
 }
 

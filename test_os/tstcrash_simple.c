@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "tst.h"
-
+typedef char * caddr_t;
 char *progname;
 
 void t_stack()

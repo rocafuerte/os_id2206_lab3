@@ -5,6 +5,8 @@
 #include "tst.h"
 #include "brk.h"
 
+typedef char * caddr_t;
+
 #define SIZE 10
 #define TIMES 10000
 

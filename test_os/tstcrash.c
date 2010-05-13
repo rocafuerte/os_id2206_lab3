@@ -3,7 +3,7 @@
 #include "malloc.h"
 #include "tst.h"
 #include <signal.h>
-
+typedef char * caddr_t;
 char *progname;
 
 void t_stack()
