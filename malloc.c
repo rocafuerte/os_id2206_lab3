@@ -125,7 +125,7 @@ void *malloc(size_t nbytes){
         /* TODO */
     } else {/* stora firstfit listan */
         for(p = prevp->s.ptr; ; prevp = p , p=p->s.ptr){    
-            fprintf(stderr,"I loop, p = %d\n",p);
+            
             if(p->s.size >= nunits){/* om nästa lediga plats har tillräckigt med utrymme */
                 fprintf(stderr,"I loop, får plats här\n");
                 if(p->s.size == nunits){
@@ -135,8 +135,10 @@ void *malloc(size_t nbytes){
                     freep = prevp; /* peka om nästa lediga plats till den föregående. */
                     return (void *) (p+1); /* returnera +1 för att få adress till datat, inte headern...*/
                 }else{ /* Det blev plats över */
-                    fprintf(stderr,"Passar, plats över\n");
+                    /*
+                    fprintf(stderr,"Passar, plats över\n");                    
                     fprintf(stderr,"Tar bort %d units från freelistan\n",nunits);                
+                    */
                     if (STRATEGY == 1) {
                         p->s.size -= nunits; /* minska antalet platser som finns kvar */
                         p += p->s.size; /* Pekar-aritmetik. Flyttar fram den lediga positionen. */
@@ -271,21 +273,14 @@ void *realloc(void *ptr, size_t  size){
         free(ptr);    
         return NULL;  
     }
-    
-    fprintf(stderr,"malloc\n");    
+    free(ptr);
     void * p = malloc(size);
-    fprintf(stderr,"(((Header *)ptr)-1)->s.size:%d \n",(((Header *)ptr)-1)->s.size);
-    fprintf(stderr,"(((Header *)ptr)-1)->s.size*sizeof(Header):%d \n",(((Header *)ptr)-1)->s.size*sizeof(Header));
-    fprintf(stderr,"(((Header *)p)-1)->s.size*sizeof(Header):%d \n",(((Header *)p)-1)->s.size*sizeof(Header));
     if(size < (((Header *)ptr)-1)->s.size*sizeof(Header)){
-        fprintf(stderr,"memcpy\n");
         memcpy(p, ptr,size);
     }else{
-        fprintf(stderr,"memcpy\n");
         memcpy(p, ptr, (((Header *)(ptr)-1)->s.size-1)*sizeof(Header));
     }
-    fprintf(stderr,"free\n");    
-    free(ptr);
+    
     return p;
 }
 
