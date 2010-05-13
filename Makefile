@@ -11,6 +11,11 @@ bestfit:
 worstfit:
 	gcc -o test $(FLAGS) -DSTRATEGY=3 malloc.c test.c
 
+quickfit:
+	gcc -o test $(FLAGS) -DSTRATEGY=4 -DNRQUICKLISTS=5 malloc.c test.c
+robban:
+	cp malloc.c test_os/ 
+	cd test_os && make 
 
 clean:
 

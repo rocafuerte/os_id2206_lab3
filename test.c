@@ -1,8 +1,17 @@
 #include "malloc.h"
 #include <stdio.h>
 #include <errno.h>
+#include <string.h>
+void testquick() { 
+    char *p1 = malloc(5);
+    fprintf(stderr,"p1: %d\n",p1);
+    strcpy(p1,"h2345");
+    p1 = realloc(p1,4711);
+}
+
 int main(int argc, char *argv[]){
-    /* Från labpek */
+    testquick();
+   /* Från labpek */
     /* fprintf(stderr,"------Test från labpek\n");    */
 /*     void * p = malloc(0); */
 /*     free(p); */
@@ -30,10 +39,10 @@ int main(int argc, char *argv[]){
     fprintf(stderr,"\nmalloc 8*10\n");
     p = malloc(8*10);
     */
-    malloc(5);
+    /*    malloc(5);
     malloc(16);
     malloc(0);
-    malloc(256);
-    
+    malloc(300);
+    */
     return 0;
 }

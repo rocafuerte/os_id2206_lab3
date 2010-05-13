@@ -3,6 +3,7 @@
 #define NALLOC 1024
 #define QUICKLISTELEMENTS 4 /* Antal element en ny quicklist */
 #define SMALLESTQUICKLIST 8
+/* Om NRQUICKLISTS == 0 så får vi STRATEGY 1-3 */ 
 typedef long Align; /* Ändra till rätt */
 
 union header{
@@ -17,9 +18,13 @@ typedef union header Header;
 
 static Header base; /* GLOBAL: Första addressen i free-listan */
 static Header *freep = NULL; /* GLOBAL: Nästa lediga plats i free-listan */ 
+
+#ifndef NRQUICKLISTS
+#define NRQUICKLISTS 0
+#endif
+
 static Header *quicklist[NRQUICKLISTS]={0}; /* En lista med QUICKLISTELEMENTS headers */
 
-/* OBS!tar bytes som argument */
 static Header *quickfit_morecore(size_t nu){
     printf("I quickfit_morecore, units = %d\n", nu);
     char *cp;
@@ -35,7 +40,6 @@ static Header *quickfit_morecore(size_t nu){
         ((Header*) it)->s.ptr = it+((nu+1)*sizeof(Header));
         fprintf(stderr,"pekare %d= %d, pekar på %d\n",i,it,( (Header *)it)->s.ptr);   
     }
-
     fprintf(stderr,"efter loop\n");
     it -= (nu+1)*sizeof(Header);
     ((Header*) it)->s.ptr = NULL; /* Sista pekar på NULL */
@@ -44,6 +48,7 @@ static Header *quickfit_morecore(size_t nu){
 }
 /* nu är i enhet Headers */
 static Header *morecore(size_t nu){
+    fprintf(stderr,"morecore(%d)\n",nu);
     char *cp;
     /*char *sbrk(int);  Definierar att vi kommer att använda den eller?*/
     Header *up;
@@ -60,6 +65,7 @@ static Header *morecore(size_t nu){
     fprintf(stderr,"Lägger till %d units i free listan.\n",nu);
     free((void *)(up +1)); /*Kör free på den ny vunna platsen, men intepåheadern* för att */
     /*lägga till den i free-listan*/
+    fprintf(stderr,"morecore returnerear(freep): %d\n",freep);
     return freep;
 }
 
@@ -77,55 +83,87 @@ void *malloc(size_t nbytes){
         fprintf(stderr,"Freelistan tom\n");
         base.s.ptr = freep = prevp = &base; /* Alla pekar på &base */
         base.s.size = 0;
-    }  
-    if(STRATEGY==1){
+    }
+    
+    /* Vilken freelista */
+    int list_place = 0;
+    int f_list_size;
+    if(4==STRATEGY && nbytes > SMALLESTQUICKLIST * (1<<(NRQUICKLISTS-1))){
+        list_place=NRQUICKLISTS;
+    }else{ 
+        /* Hitta lista */
+        for (f_list_size=SMALLESTQUICKLIST;
+             nbytes > f_list_size ;
+             ++list_place, f_list_size *=2) {
+        }
+    }
+    
+    if(STRATEGY == 4 && quicklist[list_place]==NULL){
+        /* Gör ny lista */
+        printf("Listan tom, gör ny!\n");
+        if (list_place < NRQUICKLISTS-1) { /* ej sista listan, som implementeras med vanlig first-fit */
+            printf("listplace: %d, innehåll: %d\n", list_place, quicklist[list_place]);
+            printf("quickfit_morecore(%d)\n", nunits);
+                /*quicklist[list_place] = quickfit_morecore(SMALLESTQUICKLIST*(1<<(list_place)));*/
+            quicklist[list_place] = quickfit_morecore(nunits);
+            printf("efter morcore\n");
+            if (quicklist[list_place] == NULL){                     
+                /* Om all disk är slut */
+                return NULL;
+            }
+            /* länka om till nästa objekt, returnera det första */ 
+        } 
+    }
+    /* Fanns plats, eller i sista listan */
+    if (STRATEGY == 4 && list_place < NRQUICKLISTS -1) {
+        printf("Fanns plats, plockar ut den lilla platsen typ...\n");
+        Header * ptr = quicklist[list_place];
+        fprintf(stderr,"Första objektet: %d, det den pekar på: %d\n ",quicklist[list_place], quicklist[list_place]->s.ptr);   
+        quicklist[list_place] = (quicklist[list_place]->s.ptr);        
+        fprintf(stderr,"Vi returnerar adress: %d\n", ptr+1);
+        return ptr+1;
+        /* TODO */
+    } else {/* stora firstfit listan */
         for(p = prevp->s.ptr; ; prevp = p , p=p->s.ptr){    
-            fprintf(stderr,"I loop\n");
+            fprintf(stderr,"I loop, p = %d\n",p);
             if(p->s.size >= nunits){/* om nästa lediga plats har tillräckigt med utrymme */
+                fprintf(stderr,"I loop, får plats här\n");
                 if(p->s.size == nunits){
                     fprintf(stderr,"Passar precis\n");
                     /* ta bort den ur listan */
                     prevp->s.ptr = p->s.ptr;
+                    freep = prevp; /* peka om nästa lediga plats till den föregående. */
+                    return (void *) (p+1); /* returnera +1 för att få adress till datat, inte headern...*/
                 }else{ /* Det blev plats över */
                     fprintf(stderr,"Passar, plats över\n");
                     fprintf(stderr,"Tar bort %d units från freelistan\n",nunits);                
-                    p->s.size -= nunits; /* minska antalet platser som finns kvar */
-                    p += p->s.size; /* Pekar-aritmetik. Flyttar fram den lediga positionen. */
-                    p->s.size = nunits;
-                }
-                freep = prevp; /* peka om nästa lediga plats till den föregående */
-                return (void *)(p+1);/* Returnera +1 för att få adressen till platsen och inte headern */
-            }
-            if(p==freep){ /* Fanns ingen plats */
-                fprintf(stderr,"Fanns ingen plats.\n");
-                if((p = morecore(nunits)) == NULL){ /* Om all disk är slut */
-                    return NULL;
-                }
-            }    
-        }
-    }
-    else if(STRATEGY==2){
-        /* Taktik: gå igenom hela freelistan och leta efter den plats som är "minst för stor" */
-        /* Hittar vi en perfect match så bryter vi loopen */
-        for(p = prevp->s.ptr; ; prevp = p , p=p->s.ptr){    
-            fprintf(stderr,"I loop\n");
-            if(p->s.size >= nunits){/* om nästa lediga plats har tillräckigt med utrymme */      
-                if(p->s.size == nunits){/* Passar precis */
-                    fprintf(stderr,"Passar precis. Smutt!\n");
-                    /* ta bort den ur listan */
-                    prevp->s.ptr = p->s.ptr;
-                    freep = prevp; /* peka om nästa lediga plats till den föregående */
-                    return (void *)(p+1);/* Returnera +1 för att få adressen till platsen och inte headern */    
-                }else{ /* Det blev plats över */
-                    fprintf(stderr,"Passar, plats över\n");
-                    /* är det en fin plats? */
-                    if (NULL == bestp || (p->s.size - nunits) < (bestp->s.size - nunits)) { /* Inte hittat nån eller hittat en bättre! */
-                        bestp = p;
-                        best_prevp = prevp;            
+                    if (STRATEGY == 1) {
+                        p->s.size -= nunits; /* minska antalet platser som finns kvar */
+                        p += p->s.size; /* Pekar-aritmetik. Flyttar fram den lediga positionen. */
+                        p->s.size = nunits;
+                        freep = prevp; /* peka om nästa lediga plats till den föregående */
+                        
+                        return (void *)(p+1);/* Returnera +1 för att få adressen till platsen och inte headern */
                     }
+                    if (STRATEGY == 2) {
+                        fprintf(stderr,"Kör strategi 2: passar, plats över\n");
+                        /* är det en fin plats? */
+                        if (NULL == bestp || (p->s.size - nunits) < (bestp->s.size - nunits)) { /* Inte hittat nån eller hittat en bättre! */
+                            bestp = p;
+                            best_prevp = prevp;            
+                        }
+                    }
+                    if (STRATEGY == 3) {
+                        fprintf(stderr,"Kör strategi 3: passar, plats över\n");
+                        /* är det en fin plats? */
+                        if (NULL == bestp || (p->s.size - nunits) > (bestp->s.size - nunits)) { /* Inte hittat nån eller hittat en "sämre"! */
+                            bestp = p;
+                            best_prevp = prevp;            
+                        }
+                    }                    
                 }
             }
-            if (freep == p) { /* Gått igenom hela listan? */
+            if(p==freep){ /* Gått igenom hela listan */               
                 if (NULL == bestp) { /* hittade ingen plats som duger */
                     /* Fanns ingen plats */
                     fprintf(stderr,"Fanns ingen plats.\n");
@@ -138,123 +176,11 @@ void *malloc(size_t nbytes){
                     bestp->s.size = nunits;
                     freep = best_prevp; /* peka om nästa lediga plats till den föregående */
                     return (void *)(bestp+1);/* Returnera +1 för att få adressen till platsen och inte headern */
-                }    
-            }
+                }
+            }             
         }
     }
- 
-    else if(STRATEGY==3){
-        /* Taktik: gå igenom hela freelistan och leta efter den plats som är sämst! */
-        /* (Ska man ändå bryta om man hittar en perfekt?) */
-        for(p = prevp->s.ptr; ; prevp = p , p=p->s.ptr){    
-            fprintf(stderr,"I loop\n");
-            if(p->s.size >= nunits){/* om nästa lediga plats har tillräckigt med utrymme */
-                fprintf(stderr,"Passar, plats över. Ändrar bestp\n");
-                if(p->s.size == nunits){/* Passar precis */
-                    fprintf(stderr,"Passar precis. Alltså smutt!\n");
-                    /* ta bort den ur listan */
-                    prevp->s.ptr = p->s.ptr;
-                    freep = prevp; /* peka om nästa lediga plats till den föregående */
-                    return (void *)(p+1);/* Returnera +1 för att få adressen till platsen och inte headern */
-                }else{ /* Det blev plats över */
-                    if (NULL == bestp || (p->s.size - nunits) > (bestp->s.size - nunits)) { /* Inte hittat nån än eller hittat en bättre! */
-                        bestp = p;
-                        best_prevp = prevp;
-                    }
-                }
-            }
-         
-            if (freep == p) { /* Gått igenom hela listan? */
-                if (NULL == bestp) { /* hittade ingen plats som duger */
-                    fprintf(stderr,"Fanns ingen plats.\n");
-                    if((p = morecore(nunits)) == NULL){ /* Om all disk är slut */
-                        return NULL;
-                    }
-                } else { /* Vi har hittat en trevlig plats med lite mer än krävd plats */
-                    fprintf(stderr,"Tar bort %d units från freelistan\n",nunits);
-                    bestp->s.size -= nunits; /* minska antalet platser som finns kvar */
-                    bestp += bestp->s.size; /* Pekar-aritmetik. Flyttar fram den lediga positionen. */
-                    bestp->s.size = nunits;
-                    freep = best_prevp; /* peka om nästa lediga plats till den föregående */
-                    return (void *)(bestp+1);/* Returnera +1 för att få adressen till platsen och inte headern */
-                }    
-            }
-        }
-    }
-    /* Quick fit */
-    else if(STRATEGY == 4){
-        /* Vilken freelista */
-        int list_place = 0;
-        int f_list_size;
-        
-        /* ANROPAS MED UNITS SÅ VI MPÅSTE RÄKNA OM 
-         * ANVÄND UNITS BARA. ÄNDRA I FREE.
-         */
-        
-        if(nbytes > SMALLESTQUICKLIST * (1<<(NRQUICKLISTS-1))){
-            list_place=NRQUICKLISTS;
-        }else{ 
-            /* Hitta lista */
-            for (f_list_size=SMALLESTQUICKLIST;
-                 nbytes > f_list_size ;
-                 ++list_place, f_list_size *=2) {
-            }
-        }
-
-        if(quicklist[list_place]==NULL){
-            /* Gör ny lista */
-            printf("Listan tom, gör ny!\n");
-            if (list_place < NRQUICKLISTS-1) { /* ej sista listan, som implementeras med vanlig first-fit */
-                printf("listplace: %d, innehåll: %d\n", list_place, quicklist[list_place]);
-                printf("quickfit_morecore(%d)\n", nunits);
-                /*quicklist[list_place] = quickfit_morecore(SMALLESTQUICKLIST*(1<<(list_place)));*/
-                quicklist[list_place] = quickfit_morecore(nunits);
-                printf("efter morcore\n");
-                if (quicklist[list_place] == NULL){                     
-                    /* Om all disk är slut */
-                    return NULL;
-                }
-                /* länka om till nästa objekt, returnera det första */ 
-            } 
-        }
-        /* Fanns plats, eller i sista listan */
-        if (list_place < NRQUICKLISTS -1) {
-            printf("Fanns plats, plockar ut den lilla platsen typ...\n");
-            Header * ptr = quicklist[list_place];
-            fprintf(stderr,"Första objektet: %d, det den pekar på: %d\n ",quicklist[list_place], quicklist[list_place]->s.ptr);   
-            quicklist[list_place] = (quicklist[list_place]->s.ptr);
-
-            fprintf(stderr,"Vi returnerar adress: %d\n", ptr);
-            return ptr+1;
-        } else {/* stora firstfit listan */
-            for(p = prevp->s.ptr; ; prevp = p , p=p->s.ptr){    
-                fprintf(stderr,"I loop\n");
-                if(p->s.size >= nunits){/* om nästa lediga plats har tillräckigt med utrymme */
-                    if(p->s.size == nunits){
-                        fprintf(stderr,"Passar precis\n");
-                        /* ta bort den ur listan */
-                        prevp->s.ptr = p->s.ptr;
-                    }else{ /* Det blev plats över */
-                        fprintf(stderr,"Passar, plats över\n");
-                        fprintf(stderr,"Tar bort %d units från freelistan\n",nunits);                
-                        p->s.size -= nunits; /* minska antalet platser som finns kvar */
-                        p += p->s.size; /* Pekar-aritmetik. Flyttar fram den lediga positionen. */
-                        p->s.size = nunits;
-                    }
-                    freep = prevp; /* peka om nästa lediga plats till den föregående */
-                    return (void *)(p+1);/* Returnera +1 för att få adressen till platsen och inte headern */
-                }
-                if(p==freep){ /* Fanns ingen plats */
-                    fprintf(stderr,"Fanns ingen plats.\n");
-                    if((p = morecore(nunits)) == NULL){ /* Om all disk är slut */
-                        return NULL;
-                    }
-                }    
-                
-            }
-        }
-    }
-}    
+}
 
 void print_free_lists(){
     Header * ap;
@@ -339,14 +265,27 @@ void free(void *ap){
 }
 
 void *realloc(void *ptr, size_t  size){
+    fprintf(stderr,"realloc\n");
     if(ptr==NULL) return malloc(size); 
     if(ptr!=NULL && 0 == size) {    
         free(ptr);    
         return NULL;  
     }
-    fprintf(stderr,"realloc\n");
-    free(ptr); /* Freear innan för att kunna återanvända minnet om den nya storleken får plats */
-    void * p = memcpy(malloc(size),ptr,size);
+    
+    fprintf(stderr,"malloc\n");    
+    void * p = malloc(size);
+    fprintf(stderr,"(((Header *)ptr)-1)->s.size:%d \n",(((Header *)ptr)-1)->s.size);
+    fprintf(stderr,"(((Header *)ptr)-1)->s.size*sizeof(Header):%d \n",(((Header *)ptr)-1)->s.size*sizeof(Header));
+    fprintf(stderr,"(((Header *)p)-1)->s.size*sizeof(Header):%d \n",(((Header *)p)-1)->s.size*sizeof(Header));
+    if(size < (((Header *)ptr)-1)->s.size*sizeof(Header)){
+        fprintf(stderr,"memcpy\n");
+        memcpy(p, ptr,size);
+    }else{
+        fprintf(stderr,"memcpy\n");
+        memcpy(p, ptr, (((Header *)(ptr)-1)->s.size-1)*sizeof(Header));
+    }
+    fprintf(stderr,"free\n");    
+    free(ptr);
     return p;
 }
 
