@@ -71,8 +71,11 @@ int main(int argc, char *argv[])
 
   for(i=0;i<MAXPOSTS;i++)
     {
+        /*fprintf(stderr,"test1_iter: %d\n",i);*/
       memPosts[i].size = rand()%(MAXSIZE/2);
-      memPosts[i].ptr = (double*) malloc(memPosts[i].size*sizeof(double));
+      /*fprintf(stderr,"memPosts[i].size: %d\n",memPosts[i].size);*/
+      memPosts[i].ptr = (double*) malloc(memPosts[i].size*sizeof(double)); /*SIGSEG */
+      /*fprintf(stderr,"memPosts[i].ptr: %d\n",memPosts[i].ptr);*/
       if ( memPosts[i].size == 0 &&  memPosts[i].ptr!= NULL )
 /*	MESSAGE("* ERROR: malloc doesn't return NULL pointer on zero size\n");*/
 		  ;
@@ -86,47 +89,47 @@ int main(int argc, char *argv[])
   calcMemUsage(&maxMem);
   
   for(i=0;i<MAXITERS;i++)
-    {
-      int index;
-      index = rand()%MAXPOSTS;
+      {
+          fprintf(stderr,"test2_iter: %d\n",i);
+          int index;
+          index = rand()%MAXPOSTS;
  
-      if(ALLOCATED(index))
-	{ 
-	if(rand()%5 < 3)
-	  {
-	    if(memPosts[index].ptr[0] != 3.14)
-	      MESSAGE("* ERROR: Corrupt memory handling\n");
-	    memPosts[index].size = rand()%MAXSIZE;
-	    memPosts[index].ptr = 
-	      (double*) realloc(memPosts[index].ptr,
-				memPosts[index].size*sizeof(double)); 
-	    if(memPosts[index].size && memPosts[index].ptr[0] != 3.14)
-	      MESSAGE("* ERROR: Corrupt memory handling\n");
-	    if(memPosts[index].size) memPosts[index].ptr[0] = 3.14;
-	  }
-        else
-	  {
-	    if(memPosts[index].ptr[0] != 3.14)
-	      MESSAGE("* ERROR: Corrupt memory handling\n");
-            free(memPosts[index].ptr);
-            memPosts[index].size = 0;
-	  }
-	}
-      else 
-	{
-	  memPosts[index].size = rand()%MAXSIZE;
-	  memPosts[index].ptr = (double*) malloc(memPosts[index].size*sizeof(double)); 
-	  if(memPosts[index].size) memPosts[index].ptr[0] = 3.14;
-	}
-      calcMemUsage(&maxMem);
-    }
+          if(ALLOCATED(index))
+              { 
+                  if(rand()%5 < 3)
+                      {
+                          if(memPosts[index].ptr[0] != 3.14)
+                              MESSAGE("* ERROR: Corrupt memory handling1\n");
+                          memPosts[index].size = rand()%MAXSIZE;
+                          /*SIGSEG*/ 
+                          memPosts[index].ptr = (double*) realloc(memPosts[index].ptr, memPosts[index].size*sizeof(double)); 
+                          if(memPosts[index].size && memPosts[index].ptr[0] != 3.14)
+                              MESSAGE("* ERROR: Corrupt memory handling2\n");
+                          if(memPosts[index].size) memPosts[index].ptr[0] = 3.14;
+                      }
+                  else
+                      {
+                          if(memPosts[index].ptr[0] != 3.14)
+                              MESSAGE("* ERROR: Corrupt memory handling3\n");
+                          free(memPosts[index].ptr);
+                          memPosts[index].size = 0;
+                      }
+              }
+          else 
+              {
+                  memPosts[index].size = rand()%MAXSIZE;
+                  memPosts[index].ptr = (double*) malloc(memPosts[index].size*sizeof(double)); 
+                  if(memPosts[index].size) memPosts[index].ptr[0] = 3.14;
+              }
+          calcMemUsage(&maxMem);
+      }
   end = (char*) sbrk(0);
   fprintf(stderr,
-	  "%s: Max memory allocated %d\n%s: Memory consumed %ld\n",
-	  progname,
+          "%s: Max memory allocated %d\n%s: Memory consumed %ld\n",
+          progname,
           maxMem,
-	  progname,
-	  (unsigned long)(end-start));
+          progname,
+          (unsigned long)(end-start));
   return 0;
 }
 

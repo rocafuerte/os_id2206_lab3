@@ -1,11 +1,16 @@
+/**
+ * OS id2206
+ * Lab 3 malloc.c
+ *
+ * Written by: Jan Nordberg & Felix Rios
+ */
 #include "malloc.h"
 #include <stdio.h>
 #define NALLOC 1024
-#define QUICKLISTELEMENTS 2 /* Antal element en ny quicklist */
+#define QUICKLISTELEMENTS 8 /* Antal element en ny quicklist */
 #define SMALLESTQUICKLIST 8 /* Units */
 /* Om NRQUICKLISTS == 0 så får vi STRATEGY 1-3 */ 
-typedef long Align; /* Ändra till rätt */
-
+typedef long Align; 
 union header{
     struct{
         union header *ptr;
@@ -16,40 +21,33 @@ union header{
 
 typedef union header Header;
 
-static Header base; /* GLOBAL: Första addressen i free-listan */
-static Header *freep = NULL; /* GLOBAL: Nästa lediga plats i free-listan */ 
+static Header base; /* Första addressen i free-listan */
+static Header *freep = NULL; /* Nästa lediga plats i free-listan */ 
 
 #ifndef NRQUICKLISTS
 #define NRQUICKLISTS 0
 #endif
-
 static Header* quicklist[NRQUICKLISTS]={0}; /* En lista med QUICKLISTELEMENTS headers */
 
 static Header *quickfit_morecore(size_t nu){
-    printf("I quickfit_morecore, units = 0x%x\n", nu);
     char *cp;
     char *it;
     int i=0;
-    cp = sbrk(nu*((sizeof(Header)+1))*QUICKLISTELEMENTS);
+    cp = sbrk(nu*sizeof(Header)*QUICKLISTELEMENTS);
     if(cp == (char *) -1 ){/* Gör koden portabel */
         return NULL; /* Om det inte fanns disk */
     }
-    for(it=cp;i<QUICKLISTELEMENTS;it+=(nu*sizeof(Header)+sizeof(Header)), i++){
-        /*((Header*) it)->s.size = nu*sizeof(Header);*/ /* blir bytes */
+    for(it=cp;i<QUICKLISTELEMENTS;it+=nu*sizeof(Header), i++){
         ((Header*) it)->s.size = nu; /* Antal units */
-        ((Header*) it)->s.ptr = it+((nu+1)*sizeof(Header));
-        /*fprintf(stderr,"pekare 0x%x= 0x%x, pekar på 0x%x\n",i,it,( (Header *)it)->s.ptr);   */
+        ((Header*) it)->s.ptr = it+(nu*sizeof(Header));
     }
-    /*fprintf(stderr,"efter loop\n");*/
-    it -= (nu+1)*sizeof(Header);
-    ((Header*) it)->s.ptr = NULL; /* Sista pekar på NULL */
-    /*fprintf(stderr,"pekare 0x%x= 0x%x, pekar på 0x%x\n",--i,it,( (Header *)it)->s.ptr);*/
+    it -= nu*sizeof(Header);
+    ((Header*) it)->s.ptr = NULL; /* Sista pekar på NULL */    
     return (Header *)cp;
 }
-/* nu är i enhet Headers */
+
 static Header *morecore(size_t nu){    
     char *cp;
-    /*char *sbrk(int);  Definierar att vi kommer att använda den eller?*/
     Header *up;
   
     if(nu < NALLOC && STRATEGY != 4){ /* Även om man frågar efter lite så blir den minst NALLOC */
@@ -59,19 +57,27 @@ static Header *morecore(size_t nu){
     if(cp == (char *) -1 ){/* Gör koden portabel */
         return NULL; /* Om det inte fanns disk */
     }
-    up = (Header *) cp; /* Castar det nua utrymmer till en Header*/
+    up = (Header *) cp; /* Castar det nya utrymmer till en Header*/
     up->s.size = nu; /* Sätter storleken på det nya utrymmet till det man frågade efter*/
-    /* fprintf(stderr,"Lägger till 0x%x units i free listan.\n",nu); */
-    free((void *)(up +1)); /*Kör free på den ny vunna platsen, men intepåheadern* för att */
-    /*lägga till den i free-listan*/
-    /*print_free_lists();*/
+    /* Kör free på den ny vunna platsen, men inte på headern för att 
+     * lägga till den i freelistan 
+     */
+    free((void *)(up +1)); 
     return freep;
+}
+/* Hitta index i quicklistan */
+int get_ql_index(int bytes){
+    int index=0;
+    int f_list_size=0;
+    for (f_list_size=SMALLESTQUICKLIST;
+         bytes > f_list_size ;     
+         ++index, f_list_size *=2) {
+    }    
+    return index;
 }
 
 void *malloc(size_t nbytes){
-    /*fprintf(stderr,"malloc %d bytes\n",nbytes);*/
     if(nbytes <= 0) return NULL;
-    int j=0;
     Header *p; /* Pekare till nästa lediga minnesarea */
     Header *prevp; /* Pekare till förra lediga minnesarean */
     Header *morecore(size_t); /* Funktion som allocerar mer minne */
@@ -79,86 +85,53 @@ void *malloc(size_t nbytes){
     Header * bestp = NULL; /* hålla reda på bäst hittills i bestfit */
     Header * best_prevp = NULL; /* För att kunna plocka ur freelistan i bestfit */
     int list_place = 0;
-    int f_list_size;
-
+    
     nunits = (nbytes+sizeof(Header)-1)/sizeof(Header)+1;
     if((prevp = freep) == NULL){ /* Ingen free-list ännu*/
         base.s.ptr = freep = prevp = &base; /* Alla pekar på &base */
         base.s.size = 0;
     }
-    fprintf(stderr,"malloc %d units\n",nunits);
+    
     /* Vilken freelista */
     if(4==STRATEGY && nbytes > SMALLESTQUICKLIST * (1<<(NRQUICKLISTS-1))){
         list_place=NRQUICKLISTS;
-        fprintf(stderr,"%d list_place");
-    }else{ 
+    }else{         
         /* Hitta lista */
-        for (f_list_size=SMALLESTQUICKLIST;
-             nbytes > f_list_size ;
-             ++list_place, f_list_size *=2) {
-        }
+        list_place=get_ql_index(nbytes);
     }
-    fprintf(stderr,"hör till lista %d \n",list_place);
     
-    if(STRATEGY == 4 && 
-       quicklist[list_place]==NULL && 
-       list_place < NRQUICKLISTS){
+    if(STRATEGY == 4 &&        
+       list_place < NRQUICKLISTS &&
+       quicklist[list_place]==NULL){        
         /* Gör ny lista */
-        /* ej sista listan, som implementeras med vanlig first-fit */
-        /*printf("listplace: 0x%x, innehåll: 0x%x\n", list_place, quicklist[list_place]);
-          printf("quickfit_morecore(0x%x)\n", nunits);*/
-        /* HÄR ÄR DET EN SKILLNAD */
+        /* Ej sista listan, som implementeras med vanlig first-fit */
         quicklist[list_place] = quickfit_morecore(nunits);
         if (quicklist[list_place] == NULL){
             return NULL;
         }
-        /* länka om till nästa objekt, returnera det första */
     }
     /* Fanns plats, eller i sista listan */
     if (STRATEGY == 4 && list_place < NRQUICKLISTS) {
-        Header * ptr = quicklist[list_place]; /* base för quicklist */
+        Header * ptr = quicklist[list_place]; 
         quicklist[list_place] = (quicklist[list_place]->s.ptr);
-        fprintf(stderr,"quicklist[list_place]: 0x%x quicklist[list_place]->s.ptr: 0x%x\n",quicklist[list_place] ,quicklist[list_place]->s.ptr);
-        
-        /* kan bli fel */        
-        /* Sätter en tom lista till NULL för annars fastnar den inte
-         *  i if satsen ovan som bestämmer om en ny lista måste göras
-         */
-        /*
-        if(ptr->s.ptr == NULL){
-            quicklist[list_place] = NULL;
-        }        
-        */
         return ptr+1;
-        /* TODO */
-    } else {/* stora firstfit listan */
-        
+    } else {/* stora firstfit listan */        
         for(p = prevp->s.ptr; ; prevp = p , p=p->s.ptr){ 
-            if(p->s.size >= nunits){/* SIGSEG!  om nästa lediga plats har tillräckigt med utrymme */
+            if(p->s.size >= nunits){
                 if(p->s.size == nunits){
-                    /*fprintf(stderr,"Passar precis\n");*/
                     /* ta bort den ur listan */
                     prevp->s.ptr = p->s.ptr;
                     freep = prevp; /* peka om nästa lediga plats till den föregående. */
                     return (void *) (p+1); /* returnera +1 för att få adress till datat, inte headern...*/
                 }else{ /* Det blev plats över */
-                    /*
-                    fprintf(stderr,"Passar, plats över\n");
-                    fprintf(stderr,"Tar bort 0x%x units från freelistan\n",nunits);
-                    */
                     if (STRATEGY == 1 || STRATEGY == 4) {
                         p->s.size -= nunits; /* minska antalet platser som finns kvar */
-                        fprintf(stderr,"p->s.size: %d, nunits: %d\n", p->s.size,nunits);
                         p += p->s.size; /* Pekar-aritmetik. Flyttar fram den lediga positionen. */
-                        fprintf(stderr,"p: 0x%x, denna pekar på ngt konstigtn &base: 0x%x\n", p,&base);
-                        p->s.size = nunits; /*SIGSEG */
+                        p->s.size = nunits; 
                         freep = prevp; /* peka om nästa lediga plats till den föregående */  
                         return (void *)(p+1);/* Returnera +1 för att få adressen till platsen och inte headern */
                     }
                     if (STRATEGY == 2) {
-                        /*
-                        fprintf(stderr,"Kör strategi 2: passar, plats över\n");
-                        */
                         /* är det en fin plats? */
                         if (NULL == bestp || (p->s.size - nunits) < (bestp->s.size - nunits)) { /* Inte hittat nån eller hittat en bättre! */
                             bestp = p;
@@ -166,7 +139,6 @@ void *malloc(size_t nbytes){
                         }
                     }
                     if (STRATEGY == 3) {
-                        /*fprintf(stderr,"Kör strategi 3: passar, plats över\n");*/
                         /* är det en fin plats? */
                         if (NULL == bestp || (p->s.size - nunits) > (bestp->s.size - nunits)) { /* Inte hittat nån eller hittat en "sämre"! */
                             bestp = p;
@@ -176,10 +148,8 @@ void *malloc(size_t nbytes){
                 }
             }
             if(p==freep){ /* Gått igenom hela listan */
-                fprintf(stderr,"Gått igenom hela listan. p=0x%x, freep: 0x%x\n",p,freep);
                 if (NULL == bestp) { /* hittade ingen plats som duger */
                     /* Fanns ingen plats */
-                    fprintf(stderr,"Fanns ingen plats. Kör morcore(%d)\n",nunits);         
                     if((p = morecore(nunits)) == NULL){ /* Om all disk är slut */
                         return NULL;
                     } 
@@ -194,14 +164,12 @@ void *malloc(size_t nbytes){
         }
     }
 }
-
+/* Debugfunction för att skriva ut alla freelistor */
 void print_free_lists(){
     Header * ap;
     int i;
     for(i=0;i<NRQUICKLISTS;i++){
-        fprintf(stderr,"\nLista %d \n",i);
         if(quicklist[i]==NULL){
-            fprintf(stderr,"NULL\n");
             continue;
         }
         ap=quicklist[i];
@@ -236,30 +204,21 @@ void free(void *ap){
         fprintf(stderr,"försöker freea en header som har size negativt: 0x%x\n",bp->s.size);
         return;
     }
-    /*if(bp->s.size == 0){
+    if(bp->s.size == 0){
         fprintf(stderr,"försöker freea en header som har size 0! 0x%x\n",bp->s.size);
         return;
-        }*/
+    }
 
     /* Om det är någon av quicklistorna. OBS size antas vara antal Headers.*/        
     if(STRATEGY==4){
         if((bp->s.size - 1)*SMALLESTQUICKLIST < (SMALLESTQUICKLIST * (1<<(NRQUICKLISTS-1)))) {
-            fprintf(stderr,"Adress 0x%x ska frias i lill-listan\n",bp);  
-            fprintf(stderr,"%d units ska frias i lill-listan\n",bp->s.size);
-            /* hitta lista */
-            for (f_list_size=SMALLESTQUICKLIST;
-                 (bp->s.size-1)*sizeof(Header) > f_list_size ;
-                 ++list_place, f_list_size *=2) {
-            }
-        
-            fprintf(stderr,"Free i lista: %d\n",list_place); 
+            /* hitta lista */ 
+            list_place = get_ql_index((bp->s.size-1)*sizeof(Header));
             bp->s.ptr = quicklist[list_place];
             quicklist[list_place] = bp;
-            return;  
+            return;
         }
     }
-    fprintf(stderr,"Adress 0x%x ska frias i stor-listan\n",bp);  
-    fprintf(stderr,"%d units ska frias i stor-listan\n",bp->s.size);  
     /* Hitta position är den nya platsen skall sättas in */
     for(p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr){
         if(p >= p->s.ptr && (bp > p || bp < p->s.ptr)){
@@ -288,18 +247,14 @@ void *realloc(void *ptr, size_t  size){
         free(ptr);    
         return NULL;  
     }
-    
-    fprintf(stderr,"realloc ptr: 0x%x, ptr->s.size: %d, ny size: %d\n",ptr,((Header*)ptr-1)->s.size,size);
     void * p = malloc(size);
-    if(size < (((Header *)ptr)-1)->s.size*sizeof(Header)){
+    if (NULL==p) return NULL;
+    if(size < ((((Header *)ptr)-1)->s.size-1)*sizeof(Header)){
         memcpy(p, ptr,size);
     }else{
-        /*
-          if(((Header *)(ptr)-1)->s.size<=0) {*/
-            memcpy(p, ptr, (((Header *)(ptr)-1)->s.size-1)*sizeof(Header));
-            /* }*/
+        memcpy(p, ptr, (((Header *)(ptr)-1)->s.size-1)*sizeof(Header));
     }
-    free(ptr); /*  Måste vara här för att klara test!!! */
+    free(ptr); 
     return p;
 }
 
